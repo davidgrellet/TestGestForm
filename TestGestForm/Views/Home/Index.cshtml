@@ -1,0 +1,43 @@
+﻿@using Newtonsoft.Json
+@{
+    ViewBag.Title = "Test GESTFORM";
+    var randNumberList = ViewData["randNumberList"] as List<string>;
+}
+
+<div class="jumbotron text-center bg-test-page" id="testPage">
+    <p class="lead"></p>
+    <h4 class="text-uppercase font-italic">- Test Gestform -</h4>
+    <h6 class="font-italic">Nombre d'éléments dans la liste : <span class="corporate-color">{{randNumberList.length}}</span></h6>
+    <div class="d-flex justify-content-center">
+        <div class="card w-100 p-5 mt-4 mb-4 d-flex text-uppercase font-italic corporate-color card-test">
+            <div class="row">
+                <div v-for="(randNumber, index) in displayRanNumberList" :key="index" class="col-2">
+                    {{randNumber}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <p><button class="btn btn-primary btn-lg button-color pl-4 pr-4" @@click="refresh" id="refresh-button">Relancer</button></p>
+    <nav>
+        <ul class="pagination">
+            <li class="page-item">
+                <button class="page-link" v-if="page != 1" @@click="page--">Précedent</button>
+            </li>
+            <li class="page-item">
+                <button class="page-link" v-for="pageNumber in pages.slice(page-1, page+150)" @@click="page = pageNumber">{{pageNumber}}</button>
+            </li>
+            <li class="page-item">
+                <button class="page-link" v-if="page < pages.length" @@click="page++">Suivant</button>
+            </li>
+        </ul>
+
+
+    </nav>
+</div>
+
+@section Scripts{
+    <script>
+        const randNumberList = @Html.Raw(JsonConvert.SerializeObject(ViewData["randNumberList"]));
+    </script>
+    <script src="~/Scripts/core/testPage.js" asp-append-version="true"></script>
+}
