@@ -31,7 +31,8 @@
                 .then(data => this.randNumberList = data)
                 .catch(error => console.warn(error));
             window.scrollTo(0, 0);
-            document.getElementById('refresh-button').blur()
+            document.getElementById('refresh-button').blur();
+            this.page = 1;
         },
 
         setPageList() {
